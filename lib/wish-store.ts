@@ -239,7 +239,7 @@ function getMemoryStore(): MemoryWishStore {
 function seedMemoryStore(store: MemoryWishStore): void {
   const now = Date.now();
   const demo: Array<Pick<Wish, "nickname" | "content" | "gender" | "contact">> = [
-    { nickname: "小王同学", content: "希望2026年家人身体健康，万事如意！", gender: "secret" },
+    { nickname: "小王同学", content: "希望2027年家人身体健康，万事如意！", gender: "secret" },
     { nickname: "Sunny", content: "求脱单！求桃花！", gender: "female" },
     { nickname: "李大力", content: "升职加薪，身体健康。", gender: "male" },
     { nickname: "Chen", content: "愿新的一年大家都平安喜乐。", gender: "secret" }

@@ -1,12 +1,12 @@
 # 许愿墙 Web App
 
-基于 Next.js App Router 的 2026 除夕许愿墙实现，包含以下能力：
+基于 Next.js App Router 的 2027 除夕许愿墙实现，包含以下能力：
 
 - 瀑布流愿望墙 + 无限滚动
 - 添加愿望弹窗（昵称、愿望、联系方式、性别）
 - localStorage 用户标识与 3 条愿望限制
-- 2026-02-16 23:59:59（北京时间）倒计时
-- 2026-02-17 00:00（北京时间）触发放飞动画（会话内仅一次）
+- 2027-02-05 23:59:59（北京时间）倒计时
+- 2027-02-06 00:00（北京时间）触发放飞动画（会话内仅一次）
 - API: `GET /api/wishes`, `POST /api/wishes`, `POST /api/wishes/release`
 - DynamoDB + 内存 fallback 存储
 
@@ -42,7 +42,7 @@ npm run test:e2e
 2. 构建应用：`npm run build`
 3. 部署：`npx serverless deploy --stage prod`
 
-> `serverless.yml` 已定义 `Wishes` 表、两条 GSI 以及 2026 除夕定时任务占位。
+> `serverless.yml` 已定义 `Wishes` 表、两条 GSI 以及 2027 除夕定时任务占位。
 
 ## 5. 数据结构
 

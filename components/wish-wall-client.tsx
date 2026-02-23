@@ -134,9 +134,9 @@ export function WishWallClient(): React.JSX.Element {
 
       <section className="mx-auto max-w-md px-4 pt-6 text-center sm:max-w-lg md:max-w-4xl">
         <div className="inline-flex rounded-full border border-[#d2323255] bg-[#d2323233] px-4 py-1 text-xs uppercase tracking-wider text-[#ffd700]">
-          Chinese New Year 2026
+          Chinese New Year 2027
         </div>
-        <h1 className="cny-title mt-4 text-6xl leading-none">2026</h1>
+        <h1 className="cny-title mt-4 text-6xl leading-none">2027</h1>
         <h2 className="cny-title text-5xl">除夕许愿墙</h2>
         <p className="mt-3 text-sm text-white/60">距离新年还有</p>
         <div className="mt-3">
