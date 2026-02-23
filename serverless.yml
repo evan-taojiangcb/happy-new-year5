@@ -1,0 +1,74 @@
+service: wish-wall-next
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${env:REGION, 'ap-northeast-1'}
+  stage: ${opt:stage, 'prod'}
+  environment:
+    DYNAMODB_TABLE: ${env:DYNAMODB_TABLE, 'Wishes'}
+    REGION: ${env:REGION, 'ap-northeast-1'}
+    ALLOWED_ORIGIN: ${env:ALLOWED_ORIGIN, '*'}
+    RELEASE_API_KEY: ${env:RELEASE_API_KEY, ''}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:PutItem
+            - dynamodb:Scan
+            - dynamodb:UpdateItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:*:table/${env:DYNAMODB_TABLE, 'Wishes'}
+            - arn:aws:dynamodb:${aws:region}:*:table/${env:DYNAMODB_TABLE, 'Wishes'}/index/*
+
+functions:
+  releaseWishes:
+    handler: .next/standalone/server.js
+    timeout: 30
+    events:
+      - schedule:
+          rate: cron(0 16 16 2 ? 2026)
+          enabled: true
+
+resources:
+  Resources:
+    WishesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:DYNAMODB_TABLE, 'Wishes'}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: wishId
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: createdAt
+            AttributeType: N
+          - AttributeName: status
+            AttributeType: S
+        KeySchema:
+          - AttributeName: wishId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: UserIdIndex
+            KeySchema:
+              - AttributeName: userId
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+          - IndexName: StatusCreatedAtIndex
+            KeySchema:
+              - AttributeName: status
+                KeyType: HASH
+              - AttributeName: createdAt
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true
